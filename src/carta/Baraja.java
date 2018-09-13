@@ -22,7 +22,7 @@ public class Baraja {
         
         for(int i=0; i<palo.length;i++){
             for(int j=0; j<número.length;j++){
-            misCartas[(i+1)*j]=new Carta(número[j], palo[i],(i+1)*j);
+            misCartas[(13*i)+j]=new Carta(número[j], palo[i],(i+1)*j);
         }
         
     }
