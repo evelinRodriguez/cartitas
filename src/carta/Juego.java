@@ -5,6 +5,7 @@
  */
 package carta;
 
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +28,7 @@ public class Juego extends javax.swing.JFrame {
 
     public Juego() {
         initComponents();
+        
 
     }
 
@@ -46,44 +49,26 @@ public class Juego extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        miEtiqueta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                miEtiquetaMouseClicked(evt);
-            }
-        });
-
         jMenu1.setText("Iniciar");
-        jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu1MenuSelected(evt);
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Barajar");
-        jMenu2.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu2MenuSelected(evt);
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Repartir");
-        jMenu3.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu3MenuSelected(evt);
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu3);
@@ -95,59 +80,69 @@ public class Juego extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(miEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGap(77, 77, 77)
+                .addComponent(miEtiqueta)
+                .addContainerGap(323, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(miEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(miEtiqueta)
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miEtiquetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miEtiquetaMouseClicked
-
-
-    }//GEN-LAST:event_miEtiquetaMouseClicked
-
-    private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
 
         miBaraja.crearMazo();
+        JOptionPane.showMessageDialog(this, "El mazo ha sido creado!!.");
+    }//GEN-LAST:event_jMenu1MouseClicked
 
-    }//GEN-LAST:event_jMenu1MenuSelected
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        if (miBaraja.misCartas[0] instanceof Carta) {
 
-    private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
-        miBaraja.barajar();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2MenuSelected
+            //1. Abrir el archivo
+            File miArchivo = new File("baraja.jpg");
+            //2. Extraer imagen a la memoria
+            try {
+                BufferedImage miImagen = ImageIO.read(miArchivo);
 
-    private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
+                int cartica = miBaraja.misCartas[0].posición;
+                System.out.println(cartica);
 
-        //1. Abrir el archivo
-        File miarchivo = new File("baraja.jpg");
-        //2. Extraer imagen a la memoria
-        try {
-            BufferedImage miImagen = ImageIO.read(miarchivo);
+                BufferedImage miniImagen = miImagen.getSubimage(225 * (cartica % 13), 315 * (cartica / 13), 225, 315);
 
-            int cartica = miBaraja.misCartas[0].posición;
-            BufferedImage miniImagen = miImagen.getSubimage(0, 0, 1500, 300);
+                //3. Asignar la image a la etiqueta
+                ImageIcon miIcono = new ImageIcon(miniImagen);
 
-            //3. Asignar la image a la etiqueta
-            ImageIcon miIcono = new ImageIcon(miniImagen);
-            
-            miEtiqueta.setIcon(miIcono);
+                miEtiqueta.setIcon(miIcono);
+             //   miEtiqueta.repaint();
+             
+            } catch (IOException ex) {
+                System.out.println("La embarró!!!!");
+            }
 
-        } catch (IOException ex) {
-            System.out.println("La embarró!!!!");
+        } else {
+            JOptionPane.showMessageDialog(this, "No existe un mazo para repartir!!!");
         }
 
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu3MenuSelected
+
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+
+        if (miBaraja.misCartas[0] instanceof Carta) {
+            miBaraja.barajar();
+            JOptionPane.showMessageDialog(this, "El mazo ha sido barajado!!!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Para barajar debe existir un mazo!!!");
+        }
+
+
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
