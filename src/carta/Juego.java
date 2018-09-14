@@ -42,12 +42,19 @@ public class Juego extends javax.swing.JFrame {
     private void initComponents() {
 
         miEtiqueta = new javax.swing.JLabel();
+        miEtiqueta2 = new javax.swing.JLabel();
+        miEriqueta3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        miEtiqueta.setBackground(new java.awt.Color(204, 204, 204));
+        miEtiqueta.setForeground(new java.awt.Color(51, 51, 51));
+
+        miEriqueta3.setText("jLabel1");
 
         jMenu1.setText("Iniciar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,16 +87,22 @@ public class Juego extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(miEtiqueta)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addComponent(miEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(miEtiqueta2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(miEriqueta3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(miEtiqueta)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(miEtiqueta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(miEtiqueta2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(miEriqueta3, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,16 +122,25 @@ public class Juego extends javax.swing.JFrame {
             //2. Extraer imagen a la memoria
             try {
                 BufferedImage miImagen = ImageIO.read(miArchivo);
-
+                
                 int cartica = miBaraja.misCartas[0].posición;
                 System.out.println(cartica);
+                int cartica1 = miBaraja.misCartas[1].posición;
+                System.out.println(cartica1);
+                int cartica2 = miBaraja.misCartas[2].posición;
+                System.out.println(cartica2);
 
                 BufferedImage miniImagen = miImagen.getSubimage(225 * (cartica % 13), 315 * (cartica / 13), 225, 315);
+                BufferedImage miniImagen1 = miImagen.getSubimage(225 * (cartica1 % 13), 315 * (cartica1 / 13), 225,315);
+                BufferedImage miniImagen2= miImagen.getSubimage(225 * (cartica2 % 13), 315 * (cartica2 / 13), 225,315);
 
                 //3. Asignar la image a la etiqueta
                 ImageIcon miIcono = new ImageIcon(miniImagen);
-
+                ImageIcon miIcono1 = new ImageIcon(miniImagen1);
+                ImageIcon miIcono2 = new ImageIcon(miniImagen2);
                 miEtiqueta.setIcon(miIcono);
+                miEtiqueta2.setIcon(miIcono1);
+                miEriqueta3.setIcon(miIcono2);
              //   miEtiqueta.repaint();
              
             } catch (IOException ex) {
@@ -144,9 +166,7 @@ public class Juego extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -185,6 +205,8 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JLabel miEtiqueta;
+    private javax.swing.JLabel miEriqueta3;
+    public javax.swing.JLabel miEtiqueta;
+    private javax.swing.JLabel miEtiqueta2;
     // End of variables declaration//GEN-END:variables
 }
